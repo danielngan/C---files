@@ -103,6 +103,7 @@ public:
         std::shared_ptr<Node>* curr1 = &head;
         std::shared_ptr<Node>* curr2 = &head;
         head = std::move((*curr2)->next);
+        cout << "testing" << endl;
         return ((*curr1)->data);
     }
 
