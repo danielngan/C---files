@@ -111,14 +111,22 @@ public:
     }
 
     T pop_back() {
+        if (!head) {
+            throw std::out_of_range("List is empty");
+        }
+    
         std::unique_ptr<Node>* curr = &head;
-
-        while ((*curr) -> next != null) {
+    
+        // Move curr until it points to the LAST node's owner
+        while ((*curr)->next) {
             curr = &((*curr)->next);
         }
-        T back = (*curr)->data;
-        *curr = null;
-        return back;
+    
+        T value = std::move((*curr)->data);  // copy or move data
+        *curr = nullptr;                     // destroy last node
+        --count;
+    
+        return value;
     }
 
     void insert(size_t pos, const T& value) {
