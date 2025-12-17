@@ -174,14 +174,15 @@ public:
 
     int find(const T& value) const {
         Node* curr = head.get();
-    int pos = 0;
+        int pos = 0;
 
     while (curr) {
         if (curr->data == value) {
             return pos;
+        } else {
+            curr = curr->next.get();
+            ++pos;  
         }
-        curr = curr->next.get();
-        ++pos;
     }
 
     return -1;
@@ -198,7 +199,7 @@ public:
         std::unique_ptr<Node>* curr = &head;
     
         // Traverse until we find a null unique_ptr
-        while ((*curr)->next != null) {
+        while ((*curr)->next != nullptr) {
             curr = &((*curr)->next);
         }
         return (*curr)->data;
@@ -208,7 +209,7 @@ public:
         std::unique_ptr<Node>* curr = &head;
     
         // Traverse until we find a null unique_ptr
-        while ((*curr)->next != null) {
+        while ((*curr)->next != nullptr) {
             curr = &((*curr)->next);
         }
         return (*curr)->data;
@@ -216,7 +217,7 @@ public:
 
     void print() const {
         std::unique_ptr<Node>* curr = &head;
-        while ((*curr)->next != null) {
+        while ((*curr)->next != nullptr) {
             curr = &((*curr)->next);
             cout << (*curr)->data << endl;
         }
