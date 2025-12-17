@@ -130,13 +130,27 @@ public:
     }
 
     void insert(size_t pos, const T& value) {
+        if (pos > count) {
+            throw std::out_of_range("Invalid position");
+        }
+    
+        if (pos == 0) {
+            auto newNode = std::make_unique<Node>(value);
+            newNode->next = std::move(head);
+            head = std::move(newNode);
+            ++count;
+            return;
+        }
+    
         auto newNode = std::make_unique<Node>(value);
         std::unique_ptr<Node>* curr = &head;
-        for (int i = 0; i < pos - 1; i++) {
+    
+        for (size_t i = 0; i < pos - 1; ++i) {
             curr = &((*curr)->next);
         }
-        newNode->next = *curr->next;
-        *curr->next = newNode;
+    
+        newNode->next = std::move((*curr)->next);
+        (*curr)->next = std::move(newNode);
         ++count;
     }
 
