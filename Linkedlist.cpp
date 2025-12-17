@@ -122,7 +122,7 @@ public:
             curr = &((*curr)->next);
         }
     
-        T value = std::move((*curr)->data);  // copy or move data
+        T value = (*curr)->data;  // copy or move data
         *curr = nullptr;                     // destroy last node
         --count;
     
