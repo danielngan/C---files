@@ -130,7 +130,7 @@ public:
     }
 
     void insert(size_t pos, const T& value) {
-        if (pos > count) {
+        if (pos >= count) {
             throw std::out_of_range("Invalid position");
         }
     
@@ -173,17 +173,18 @@ public:
     }
 
     int find(const T& value) const {
-        std::unique_ptr<Node>* curr = &head;
-        int i = 0;
-        while ((*curr) -> next != null) {
-            if ((*curr)->data == value) {
-                break;
-            } else {
-                curr = &((*curr)->next);
-                ++i;
-            } 
+        Node* curr = head.get();
+    int pos = 0;
+
+    while (curr) {
+        if (curr->data == value) {
+            return pos;
         }
-        return i;
+        curr = curr->next.get();
+        ++pos;
+    }
+
+    return -1;
     }
 
 
