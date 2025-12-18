@@ -216,10 +216,11 @@ public:
     }
 
     void print() const {
-        std::unique_ptr<Node>* curr = &head;
-        while ((*curr)->next != nullptr) {
-            curr = &((*curr)->next);
-            cout << (*curr)->data << endl;
+        Node* curr = head.get();   // non-owning traversal pointer
+    
+        while (curr) {
+            std::cout << curr->data << std::endl;
+            curr = curr->next.get();
         }
     }
 
