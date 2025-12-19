@@ -218,7 +218,7 @@ public:
     void print() const {
         Node* curr = head.get();   // non-owning traversal pointer
     
-        while (curr) {
+        while (curr->next) {
             std::cout << curr->data << std::endl;
             curr = curr->next.get();
         }
