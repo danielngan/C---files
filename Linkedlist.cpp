@@ -196,24 +196,27 @@ public:
     T& front() {return head->data;}
 
     const T& back() const {
-        std::unique_ptr<Node>* curr = &head;
-    
-        // Traverse until we find a null unique_ptr
-        while ((*curr)->next != nullptr) {
-            curr = &((*curr)->next);
+        if (!head) {
+            throw std::out_of_range("back() on empty list");
         }
-        return (*curr)->data;
+        Node* curr = head.get();
+        while (curr->next) {
+            curr = curr->next.get();
+        }
+        return curr->data;
     }
 
     T& back() {
-        std::unique_ptr<Node>* curr = &head;
-    
-        // Traverse until we find a null unique_ptr
-        while ((*curr)->next != nullptr) {
-            curr = &((*curr)->next);
+        if (!head) {
+            throw std::out_of_range("back() on empty list");
         }
-        return (*curr)->data;
+        Node* curr = head.get();
+        while (curr->next) {
+            curr = curr->next.get();
+        }
+        return curr->data;
     }
+    
 
     void print() const {
         Node* curr = head.get();   // non-owning traversal pointer
